@@ -38,4 +38,4 @@ To run this application, ensure you have Java Development Kit (JDK) installed on
 ## Contributing
 
     User can retrive how much he shoud drink water in a day to be hidrated 
-    And also set the timer in how much time he want an notification reminder for him self
+    And The user can also decide after how much time the user wants a reminder to drink water
