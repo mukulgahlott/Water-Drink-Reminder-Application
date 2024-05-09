@@ -37,5 +37,5 @@ To run this application, ensure you have Java Development Kit (JDK) installed on
 
 ## Contributing
 
-    Aser can retrive how much he shoud drink water in a day to be hidrated 
+    User can retrive how much he shoud drink water in a day to be hidrated 
     And also set the timer in how much time he want an notification reminder for him self
