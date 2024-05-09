@@ -1,4 +1,4 @@
-// org
+// org.
 // import necessary libraries
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
