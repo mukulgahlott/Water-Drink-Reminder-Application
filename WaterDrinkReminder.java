@@ -1,3 +1,4 @@
+// org
 // import necessary libraries
 import java.awt.*;
 import java.awt.TrayIcon.MessageType;
@@ -20,11 +21,11 @@ class User implements Serializable {
         this.weight = weight;
     }
 }
-
+// main class
  class WaterDrinkReminder {
-    // storage file
+ // storage file
     private  static final String FILENAME = "users.txt";
-    // icon png
+// icon png
     private static final String ICON_PATH = "water-glass.png";
 
     public static class ReminderThread extends Thread {
@@ -44,11 +45,10 @@ class User implements Serializable {
             running = false;
         }
 
-        // Run method to execute the reminder
+    // Run method to execute the reminder
         @Override
         public void run() {
             while (running) {
-                // Build indented message
                 StringBuilder im = new StringBuilder();
                 for (int i = 0; i < indentationLevel; i++) {
                     im.append("\t"); // Add tabs for indentation
