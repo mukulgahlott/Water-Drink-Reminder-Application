@@ -7,8 +7,6 @@ import java.util.*;
 import java.util.List;
 
 class User implements Serializable {
-    // Serial version UID for serialization
-    public static final long serialVersionUID = 1L;
     // user attributes
     public String name;
     public int age;
