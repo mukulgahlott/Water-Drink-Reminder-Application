@@ -1,18 +1,19 @@
 package timepakage;
+
 import java.time.*;
 import java.io.Serializable;
 
-
 public class DateTimeExample implements Serializable {
     public LocalDateTime timestemp;
-   public int amount;
+    public double amount;
 
-public DateTimeExample(int amount){
-    this.timestemp=LocalDateTime.now();
-    this.amount = amount;
-}   
-    //getter
-    public int getAmount() {
+    public DateTimeExample(double amount) {
+        this.timestemp = LocalDateTime.now();
+        this.amount = amount;
+    }
+
+    // getter
+    public double getAmount() {
         return amount;
     }
 
