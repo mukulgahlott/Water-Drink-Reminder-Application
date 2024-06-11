@@ -1,8 +1,4 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.*;
 
 public class ContactBook {
 
@@ -31,11 +27,8 @@ public class ContactBook {
         searchPanel.setBackground(new Color(245, 245, 245));
         searchField = new JTextField();
         searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
-            @Override
             public void removeUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
-            @Override
             public void changedUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
         });
         searchPanel.add(new JLabel("Search: "), BorderLayout.WEST);
@@ -106,6 +99,18 @@ public class ContactBook {
         }
     }
 
+    // Sorting by name
+    private void sortByName() {
+        Collections.sort(contacts);
+        updateContactArea();
+    }
+
+    // Sorting by phone using Comparator
+    private void sortByPhone() {
+        contacts.sort(Comparator.comparing(Contact::getPhone));
+        updateContactArea();
+    }
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
@@ -115,7 +120,7 @@ public class ContactBook {
         });
     }
 
-    class Contact {
+    class Contact implements Comparable<Contact> {
         private String name;
         private String phone;
 
@@ -130,6 +135,11 @@ public class ContactBook {
 
         public String getPhone() {
             return phone;
+        }
+
+        @Override
+        public int compareTo(Contact other) {
+            return this.name.compareToIgnoreCase(other.name);
         }
     }
 }
