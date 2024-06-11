@@ -1,0 +1,135 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
+public class ContactBook {
+
+    private JFrame frame;
+    private JTextField nameField;
+    private JTextField phoneField;
+    private JTextArea contactArea;
+    private JTextField searchField;
+    private ArrayList<Contact> contacts;
+
+    public ContactBook() {
+        contacts = new ArrayList<>();
+        initialize();
+    }
+
+    private void initialize() {
+        frame = new JFrame("Contact Book");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 600);
+        frame.setLayout(new BorderLayout(10, 10));
+        frame.getContentPane().setBackground(new Color(245, 245, 245));
+        
+        // Search Panel
+        JPanel searchPanel = new JPanel();
+        searchPanel.setLayout(new BorderLayout(5, 5));
+        searchPanel.setBackground(new Color(245, 245, 245));
+        searchField = new JTextField();
+        searchField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            @Override
+            public void insertUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
+            @Override
+            public void removeUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
+            @Override
+            public void changedUpdate(javax.swing.event.DocumentEvent e) { updateContactArea(); }
+        });
+        searchPanel.add(new JLabel("Search: "), BorderLayout.WEST);
+        searchPanel.add(searchField, BorderLayout.CENTER);
+        
+        // Input Panel
+        JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(3, 2, 5, 5));
+        inputPanel.setBackground(new Color(245, 245, 245));
+        JLabel nameLabel = new JLabel("Contact Name:");
+        nameField = new JTextField();
+        JLabel phoneLabel = new JLabel("Phone Number:");
+        phoneField = new JTextField();
+        JButton addButton = new JButton("Add Contact");
+        addButton.setBackground(new Color(0, 120, 215));
+        addButton.setForeground(Color.WHITE);
+        
+        inputPanel.add(nameLabel);
+        inputPanel.add(nameField);
+        inputPanel.add(phoneLabel);
+        inputPanel.add(phoneField);
+        inputPanel.add(new JLabel()); // Empty cell in the grid
+        inputPanel.add(addButton);
+        
+        // Contact Display Area
+        contactArea = new JTextArea();
+        contactArea.setEditable(false);
+        contactArea.setFont(new Font("Monospaced", Font.PLAIN, 12));
+        JScrollPane scrollPane = new JScrollPane(contactArea);
+
+        // Add panels to the frame
+        frame.add(searchPanel, BorderLayout.NORTH);
+        frame.add(inputPanel, BorderLayout.CENTER);
+        frame.add(scrollPane, BorderLayout.SOUTH);
+
+        // Add button action listener
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addContact();
+            }
+        });
+
+        frame.setVisible(true);
+    }
+
+    private void addContact() {
+        String name = nameField.getText();
+        String phone = phoneField.getText();
+
+        if (!name.isEmpty() && !phone.isEmpty()) {
+            contacts.add(new Contact(name, phone));
+            updateContactArea();
+            nameField.setText("");
+            phoneField.setText("");
+        } else {
+            JOptionPane.showMessageDialog(frame, "Both fields must be filled out.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateContactArea() {
+        String searchQuery = searchField.getText().toLowerCase();
+        contactArea.setText("");
+        for (Contact contact : contacts) {
+            if (contact.getName().toLowerCase().contains(searchQuery) || contact.getPhone().contains(searchQuery)) {
+                contactArea.append(contact.getName() + " - " + contact.getPhone() + "\n");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new ContactBook();
+            }
+        });
+    }
+
+    class Contact {
+        private String name;
+        private String phone;
+
+        public Contact(String name, String phone) {
+            this.name = name;
+            this.phone = phone;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getPhone() {
+            return phone;
+        }
+    }
+}
