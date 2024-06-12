@@ -4,41 +4,61 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableExample {
+// Step 1: Define the custom class
+class Person {
+    private int id;
+    private String name;
+    private int age;
+
+    public Person(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+}
+
+public class CustomListTableExample {
     public static void main(String[] args) {
-        // Create a new JFrame
-        JFrame frame = new JFrame("Table Example");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        // Step 2: Create a list of custom objects
+        List<Person> personList = new ArrayList<>();
+        personList.add(new Person(1, "John Doe", 25));
+        personList.add(new Person(2, "Jane Smith", 30));
+        personList.add(new Person(3, "Mike Johnson", 28));
+        personList.add(new Person(4, "Emily Davis", 22));
 
-        // Create a panel to hold the table
-        JPanel panel = new JPanel(new BorderLayout());
-        frame.add(panel);
-
-        // Define column names
+        // Step 3: Create the table model and set column names
         String[] columnNames = { "ID", "Name", "Age" };
-
-        // Create a list of data
-        List<Object[]> dataList = new ArrayList<>();
-        dataList.add(new Object[] { 1, "John Doe", 25 });
-        dataList.add(new Object[] { 2, "Jane Smith", 30 });
-        dataList.add(new Object[] { 3, "Mike Johnson", 28 });
-        dataList.add(new Object[] { 4, "Emily Davis", 22 });
-
-        // Create the table model and set column names
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
 
         // Add data to the table model
-        for (Object[] rowData : dataList) {
+        for (Person person : personList) {
+            Object[] rowData = { person.getId(), person.getName(), person.getAge() };
             tableModel.addRow(rowData);
         }
 
-        // Create the table with the table model
+        // Step 4: Create the table with the table model
         JTable table = new JTable(tableModel);
 
-        // Add the table to a scroll pane
+        // Step 5: Add the table to a scroll pane
         JScrollPane scrollPane = new JScrollPane(table);
-        panel.add(scrollPane, BorderLayout.CENTER);
+
+        // Step 6: Create a new JFrame and add the scroll pane to it
+        JFrame frame = new JFrame("Custom List Table Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.add(scrollPane, BorderLayout.CENTER);
 
         // Set the frame to be visible
         frame.setVisible(true);
