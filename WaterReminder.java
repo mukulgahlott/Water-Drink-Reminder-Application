@@ -1,3 +1,23 @@
+public void contactTablePanel() {
+    // ... Existing code ...
+
+    // Add a select all checkbox
+    JCheckBox selectAllCheckBox = new JCheckBox("Select All");
+    selectAllCheckBox.setBounds(20, 470, 80, 30);
+    mainFrame.add(selectAllCheckBox);
+
+    selectAllCheckBox.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            boolean checked = selectAllCheckBox.isSelected();
+            for (int row = 0; row < booksTable.getRowCount(); row++) {
+                booksTable.setValueAt(checked, row, 0);
+            }
+        }
+    });
+
+    // ... Existing code ...
+}
 package reminderpakae;
 
 import java.util.List;
